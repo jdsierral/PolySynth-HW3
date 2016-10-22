@@ -13,6 +13,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
+#include "Oscillator.h"
+
 
 struct SynthSound :				public SynthesiserSound
 {
@@ -41,9 +43,9 @@ public:
 	void renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
 	
 private:
-	//	Sine carrier, modulator;
-	//	Smooth smooth[2];
-	double carrierFrequency, index, level, envelope;
+	ScopedPointer<Oscillator> osc;
+	
+	double level, freq;
 	bool onOff, tailOff;
 };
 
