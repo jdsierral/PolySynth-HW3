@@ -17,8 +17,16 @@ onOff (false),
 tailOff(true)
 {
 	osc = new Oscillator(0, 0);
+	env = new Enveloper(1, 10, -6, 200);
 	osc->setSampleRate(getSampleRate());
+	env->setSampleRate(getSampleRate());
 };
+
+SynthVoice::~SynthVoice(){
+	osc = nullptr;
+	env = nullptr;
+}
+
 
 bool SynthVoice::canPlaySound (SynthesiserSound* sound)
 {
@@ -31,13 +39,12 @@ void SynthVoice::startNote (int midiNoteNumber, float velocity,
 	osc->setFreq(MidiMessage::getMidiNoteInHertz(midiNoteNumber));
 	osc->setGain(0);
 	level = velocity;
-	if (level > 0) onOff = true;
+	if (level > 0) env->start();
 }
 
 void SynthVoice::stopNote (float /*velocity*/, bool allowTailOff)
 {
-	onOff = false; // end the note
-	level = 0; // ramp envelope to 0 if tail off is allowe
+	env->stop();
 	tailOff = allowTailOff;
 }
 
@@ -59,14 +66,12 @@ void SynthVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
 	
 	if (onOff) {
 		for (int i = 0; i < numSamples; i++) {
-			outL[i] = osc->tick() * level;
+			outL[i] = osc->tick() * level * env->tick();
 			outR[i] = outL[i];
 		}
 	}
 	
-	if(!onOff && (!tailOff)){
-		// check envelope level and clear it to 0 under certain threshold
-		
+	if(!env->isOn() && !env->isPlaying()){
 		clearCurrentNote();
 	}
 }

@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 #include "Oscillator.h"
+#include "Enveloper.h"
 
 
 struct SynthSound :				public SynthesiserSound
@@ -28,6 +29,7 @@ class SynthVoice :				public SynthesiserVoice
 {
 public:
 	SynthVoice();
+	~SynthVoice();
 	
 	bool canPlaySound (SynthesiserSound* sound) override;
 	
@@ -43,7 +45,8 @@ public:
 	void renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
 	
 private:
-	ScopedPointer<Oscillator> osc;
+	ScopedPointer<Oscillator>	osc;
+	ScopedPointer<Enveloper>	env;
 	
 	double level, freq;
 	bool onOff, tailOff;

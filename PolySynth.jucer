@@ -13,13 +13,21 @@
               companyEmail="jdsierral@JuanSaudio.com">
   <MAINGROUP id="EJpU6M" name="PolySynth">
     <GROUP id="{D6C47CA3-D502-E2FD-C7E4-FD09E4BA522F}" name="Source">
-      <FILE id="xFJeVM" name="OnePoleLPF.h" compile="0" resource="0" file="Source/OnePoleLPF.h"/>
-      <FILE id="qJLxcX" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
-      <FILE id="VRuEht" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
-      <FILE id="vABrxW" name="SynthSound.cpp" compile="1" resource="0" file="Source/SynthSound.cpp"/>
-      <FILE id="jiMGp6" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
-      <FILE id="Yfwqz1" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
-      <FILE id="WhMQPv" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      <GROUP id="{F99F13FB-B1A7-D743-4B1A-97C121437488}" name="Delete">
+        <FILE id="iwUnLu" name="GUIGuide.cpp" compile="1" resource="0" file="Source/GUIGuide.cpp"/>
+        <FILE id="jyTji6" name="GUIGuide.h" compile="0" resource="0" file="Source/GUIGuide.h"/>
+      </GROUP>
+      <GROUP id="{0B1EAF20-7D81-199E-D980-3E01B2E4CD61}" name="Synth">
+        <FILE id="xFJeVM" name="OnePoleLPF.h" compile="0" resource="0" file="Source/OnePoleLPF.h"/>
+        <FILE id="wujwSv" name="Enveloper.cpp" compile="1" resource="0" file="Source/Enveloper.cpp"/>
+        <FILE id="Dr9MIX" name="Enveloper.h" compile="0" resource="0" file="Source/Enveloper.h"/>
+        <FILE id="qJLxcX" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+        <FILE id="VRuEht" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+        <FILE id="vABrxW" name="SynthSound.cpp" compile="1" resource="0" file="Source/SynthSound.cpp"/>
+        <FILE id="jiMGp6" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
+        <FILE id="Yfwqz1" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
+        <FILE id="WhMQPv" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      </GROUP>
       <FILE id="MlnunZ" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="VqT0UN" name="PluginProcessor.h" compile="0" resource="0"
@@ -27,32 +35,30 @@
       <FILE id="Z9odgL" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="x7DVAA" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="iwUnLu" name="GUIGuide.cpp" compile="1" resource="0" file="Source/GUIGuide.cpp"/>
-      <FILE id="jyTji6" name="GUIGuide.h" compile="0" resource="0" file="Source/GUIGuide.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" vst3Folder="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="PolySynth"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="PolySynth"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_events" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../Juce-Grapefruit/modules"/>
         <MODULEPATH id="juce_video" path="../../../Juce-Grapefruit/modules"/>
         <MODULEPATH id="juce_opengl" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_events" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_core" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../Juce-Grapefruit/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../Juce-Grapefruit/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="../../../Juce-Grapefruit/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../Juce-Grapefruit/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../Juce-Grapefruit/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
