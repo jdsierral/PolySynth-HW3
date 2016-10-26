@@ -13,18 +13,29 @@
               companyEmail="jdsierral@JuanSaudio.com">
   <MAINGROUP id="EJpU6M" name="PolySynth">
     <GROUP id="{D6C47CA3-D502-E2FD-C7E4-FD09E4BA522F}" name="Source">
+      <GROUP id="{B1141F2E-F0AF-622D-8B8D-5BEEC7B45C45}" name="Effects">
+        <FILE id="jyVyTx" name="Tremolo.cpp" compile="1" resource="0" file="Source/Tremolo.cpp"/>
+        <FILE id="J82DAO" name="Tremolo.h" compile="0" resource="0" file="Source/Tremolo.h"/>
+      </GROUP>
+      <GROUP id="{BEAE680D-EC2B-E822-E624-4AD178EEF45F}" name="Tools">
+        <FILE id="xFJeVM" name="OnePoleLPF.h" compile="0" resource="0" file="Source/OnePoleLPF.h"/>
+        <FILE id="w7uOF9" name="PluginParams.cpp" compile="1" resource="0"
+              file="Source/PluginParams.cpp"/>
+        <FILE id="hQPRSH" name="PluginParams.h" compile="0" resource="0" file="Source/PluginParams.h"/>
+        <FILE id="Hgn0fJ" name="XYSlider.cpp" compile="1" resource="0" file="Source/XYSlider.cpp"/>
+        <FILE id="tQgPhF" name="XYSlider.h" compile="0" resource="0" file="Source/XYSlider.h"/>
+      </GROUP>
       <GROUP id="{F99F13FB-B1A7-D743-4B1A-97C121437488}" name="Delete">
         <FILE id="iwUnLu" name="GUIGuide.cpp" compile="1" resource="0" file="Source/GUIGuide.cpp"/>
         <FILE id="jyTji6" name="GUIGuide.h" compile="0" resource="0" file="Source/GUIGuide.h"/>
       </GROUP>
       <GROUP id="{0B1EAF20-7D81-199E-D980-3E01B2E4CD61}" name="Synth">
-        <FILE id="xFJeVM" name="OnePoleLPF.h" compile="0" resource="0" file="Source/OnePoleLPF.h"/>
         <FILE id="wujwSv" name="Enveloper.cpp" compile="1" resource="0" file="Source/Enveloper.cpp"/>
         <FILE id="Dr9MIX" name="Enveloper.h" compile="0" resource="0" file="Source/Enveloper.h"/>
         <FILE id="qJLxcX" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
         <FILE id="VRuEht" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
-        <FILE id="vABrxW" name="SynthSound.cpp" compile="1" resource="0" file="Source/SynthSound.cpp"/>
-        <FILE id="jiMGp6" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
+        <FILE id="hI1kBV" name="Generator.cpp" compile="1" resource="0" file="Source/Generator.cpp"/>
+        <FILE id="dte0hK" name="Generator.h" compile="0" resource="0" file="Source/Generator.h"/>
         <FILE id="Yfwqz1" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
         <FILE id="WhMQPv" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       </GROUP>
@@ -32,9 +43,9 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="VqT0UN" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="Z9odgL" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="ZMHGO5" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="x7DVAA" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="awhoK1" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

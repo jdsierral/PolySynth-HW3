@@ -13,40 +13,49 @@
 double Oscillator::sampleRate = 0.0;
 
 Oscillator::Oscillator(float newGain, float newFreq)
-: gain (newGain), freq(newFreq), angle(0.0), angleDelta(0.0)
+: freq(newFreq), angle(0.0)
 {
+	gain = new ValueFilter(newGain);
+	angleDelta = new ValueFilter();
+}
+
+Oscillator::~Oscillator() {
+	gain = nullptr;
+	angleDelta = nullptr;
 }
 
 void Oscillator::setSampleRate(double newSampleRate) {
 	sampleRate = newSampleRate;
-	setFreq(freq);
 }
 
 void Oscillator::setFreq(float newFreq) {
 	const double cyclesPerSample = newFreq / sampleRate;
-	angleDelta = cyclesPerSample * PIx2;
+	angleDelta->set(cyclesPerSample * PIx2);
 }
 
-void Oscillator::setGain(float gainInDecibels) {
-	gain = Decibels::decibelsToGain<float>(gainInDecibels, -60);
+void Oscillator::setGainIndB (float gainInDecibels) {
+	gain->set(Decibels::decibelsToGain<float>(gainInDecibels, -60));
 }
 
-void Oscillator::setComplexity(float newComp) {
-	comp = newComp;
+void Oscillator::setGain(float newGain) {
+	gain->set(newGain);
 }
 
 float Oscillator::tick(){
-	
-	// Notice calculations through potential functions to generate distortio or harmonic complexity.
-	// having a positive value for complexity gives a narrower pulse like signal
-	// having a negative value gives a broader one similar to a square wave
 	float tempAng = angle;
-	angle = (tempAng + angleDelta > PIx2 ? tempAng + angleDelta - PIx2 : tempAng + angleDelta);
-	float sine = std::sin(angle);
-	int sign = sine/std::fabs(sine);
-	return gain * sign * powf(fabs(sine), powf(1.2, comp));
+	angle = tempAng + angleDelta->tick();
+	if (angle > PIx2)	angle -= PIx2;
+	return gain->tick() * std::sin(angle);;
+}
+
+float Oscillator::get(){
+	return angle;
 }
 
 void Oscillator::clearAngle() {
 	angle = 0;
+}
+
+void Oscillator::setAngleInDegrees(float newAngleInDegrees){
+	angle = degreesToRadians(newAngleInDegrees);
 }

@@ -12,17 +12,16 @@
 #define SYNTHVOICE_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "SynthSound.h"
-#include "Oscillator.h"
 #include "Enveloper.h"
+#include "Generator.h"
 
 
 struct SynthSound :				public SynthesiserSound
 {
 	SynthSound() {}
 	
-	bool appliesToNote (int /*midiNoteNumber*/) override        { return true; }
-	bool appliesToChannel (int /*midiChannel*/) override        { return true; }
+	bool appliesToNote (int /*midiNoteNumber*/) override { return true; }
+	bool appliesToChannel (int /*midiChannel*/) override { return true; }
 };
 
 class SynthVoice :				public SynthesiserVoice
@@ -40,16 +39,24 @@ public:
 	
 	void pitchWheelMoved (int /*newValue*/) override;
 	
-	void controllerMoved (int /*controllerNumber*/, int /*newValue*/) override;
+	void controllerMoved (int ccNum, int ccVal) override;
 	
 	void renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
 	
+	Generator* getGenerator () {
+		return gen;
+	}
+	
+	Enveloper* getEnveloper () {
+		return env;
+	}
+	
 private:
-	ScopedPointer<Oscillator>	osc;
+	ScopedPointer<Generator>	gen;
 	ScopedPointer<Enveloper>	env;
 	
-	double level, freq;
-	bool onOff, tailOff;
+	bool tailOff;
+	float level;
 };
 
 

@@ -12,22 +12,27 @@
 #define OSCILLATOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "OnePoleLPF.h"
 
 class Oscillator
 {
 public:
 	
 	Oscillator(float newGain, float newFreq);
+	~Oscillator();
 	
-	void setSampleRate (double newSampleRate);
+	static void setSampleRate (double newSampleRate);
+	
 	void setFreq (float newFreq);
-	void setGain (float gainInDecibels);
+	void setGainIndB (float gainInDecibels);
+	void setGain (float newGain);
 	
-	//Complexity is a nonlinear operation that causes distortion to add harmonic complexity
-	void setComplexity (float comp);
+	void setAngleInDegrees(float newAngleInDegrees);
+	void clearAngle();
+	
+	float get();
 	float tick();
 	
-	void clearAngle ();
 	
 	
 private:
@@ -40,11 +45,11 @@ private:
 	
 	// each oscillator is also responsible for its own gain
 	
-	float gain, freq;
-	float angle, angleDelta;
-	float comp;
 	
-	
+	ScopedPointer<ValueFilter> gain;
+	ScopedPointer<ValueFilter> angleDelta;
+	float freq;
+	float angle;
 };
 
 

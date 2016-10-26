@@ -32,29 +32,13 @@ GUIGuide::GUIGuide ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (valWSlider = new Slider ("valWSlider"));
-    valWSlider->setRange (0, 10, 0);
-    valWSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    valWSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
-    valWSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
-    valWSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
-    valWSlider->addListener (this);
-
-    addAndMakeVisible (valNSlider = new Slider ("valWSlider"));
-    valNSlider->setRange (0, 10, 0);
-    valNSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    valNSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
-    valNSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
-    valNSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
-    valNSlider->addListener (this);
-
-    addAndMakeVisible (valESlider = new Slider ("valESlider"));
-    valESlider->setRange (0, 10, 0);
-    valESlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
-    valESlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
-    valESlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
-    valESlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
-    valESlider->addListener (this);
+    addAndMakeVisible (amIndexSlider = new Slider ("valWSlider"));
+    amIndexSlider->setRange (0, 10, 0);
+    amIndexSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    amIndexSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    amIndexSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
+    amIndexSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
+    amIndexSlider->addListener (this);
 
     addAndMakeVisible (attackSlider = new Slider ("attackSlider"));
     attackSlider->setRange (0, 10, 0);
@@ -125,6 +109,46 @@ GUIGuide::GUIGuide ()
     midiSelBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     midiSelBox->addListener (this);
 
+    addAndMakeVisible (amRatioSlider = new Slider ("valWSlider"));
+    amRatioSlider->setRange (0, 10, 0);
+    amRatioSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    amRatioSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    amRatioSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
+    amRatioSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
+    amRatioSlider->addListener (this);
+
+    addAndMakeVisible (fmIndexSlider = new Slider ("valWSlider"));
+    fmIndexSlider->setRange (0, 10, 0);
+    fmIndexSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    fmIndexSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    fmIndexSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
+    fmIndexSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
+    fmIndexSlider->addListener (this);
+
+    addAndMakeVisible (fmRatioSlider = new Slider ("valWSlider"));
+    fmRatioSlider->setRange (0, 10, 0);
+    fmRatioSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    fmRatioSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    fmRatioSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
+    fmRatioSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
+    fmRatioSlider->addListener (this);
+
+    addAndMakeVisible (rmIndexSlider = new Slider ("valWSlider"));
+    rmIndexSlider->setRange (0, 10, 0);
+    rmIndexSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    rmIndexSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    rmIndexSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
+    rmIndexSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
+    rmIndexSlider->addListener (this);
+
+    addAndMakeVisible (rmRatioSlider = new Slider ("valWSlider"));
+    rmRatioSlider->setRange (0, 10, 0);
+    rmRatioSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    rmRatioSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    rmRatioSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00ffffff));
+    rmRatioSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00808080));
+    rmRatioSlider->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -141,9 +165,7 @@ GUIGuide::~GUIGuide()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    valWSlider = nullptr;
-    valNSlider = nullptr;
-    valESlider = nullptr;
+    amIndexSlider = nullptr;
     attackSlider = nullptr;
     interNSlider = nullptr;
     interSSlider = nullptr;
@@ -154,6 +176,11 @@ GUIGuide::~GUIGuide()
     releaseSlider = nullptr;
     volSlider = nullptr;
     midiSelBox = nullptr;
+    amRatioSlider = nullptr;
+    fmIndexSlider = nullptr;
+    fmRatioSlider = nullptr;
+    rmIndexSlider = nullptr;
+    rmRatioSlider = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -220,9 +247,7 @@ void GUIGuide::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    valWSlider->setBounds (152, 176, 39, 56);
-    valNSlider->setBounds (272, 48, 39, 56);
-    valESlider->setBounds (400, 176, 39, 56);
+    amIndexSlider->setBounds (151, 151, 39, 56);
     attackSlider->setBounds (233, 312, 29, 42);
     interNSlider->setBounds (191, 95, 207, 24);
     interSSlider->setBounds (188, 295, 207, 24);
@@ -233,6 +258,11 @@ void GUIGuide::resized()
     releaseSlider->setBounds (330, 314, 29, 42);
     volSlider->setBounds (469, 291, 125, 103);
     midiSelBox->setBounds (431, 19, 150, 24);
+    amRatioSlider->setBounds (150, 210, 39, 56);
+    fmIndexSlider->setBounds (298, 49, 39, 56);
+    fmRatioSlider->setBounds (252, 49, 39, 56);
+    rmIndexSlider->setBounds (398, 204, 39, 56);
+    rmRatioSlider->setBounds (397, 149, 39, 56);
     internalPath1.clear();
     internalPath1.startNewSubPath (296.0f, 24.0f);
     internalPath1.lineTo (475.0f, 202.0f);
@@ -249,20 +279,10 @@ void GUIGuide::sliderValueChanged (Slider* sliderThatWasMoved)
     //[UsersliderValueChanged_Pre]
     //[/UsersliderValueChanged_Pre]
 
-    if (sliderThatWasMoved == valWSlider)
+    if (sliderThatWasMoved == amIndexSlider)
     {
-        //[UserSliderCode_valWSlider] -- add your slider handling code here..
-        //[/UserSliderCode_valWSlider]
-    }
-    else if (sliderThatWasMoved == valNSlider)
-    {
-        //[UserSliderCode_valNSlider] -- add your slider handling code here..
-        //[/UserSliderCode_valNSlider]
-    }
-    else if (sliderThatWasMoved == valESlider)
-    {
-        //[UserSliderCode_valESlider] -- add your slider handling code here..
-        //[/UserSliderCode_valESlider]
+        //[UserSliderCode_amIndexSlider] -- add your slider handling code here..
+        //[/UserSliderCode_amIndexSlider]
     }
     else if (sliderThatWasMoved == attackSlider)
     {
@@ -308,6 +328,31 @@ void GUIGuide::sliderValueChanged (Slider* sliderThatWasMoved)
     {
         //[UserSliderCode_volSlider] -- add your slider handling code here..
         //[/UserSliderCode_volSlider]
+    }
+    else if (sliderThatWasMoved == amRatioSlider)
+    {
+        //[UserSliderCode_amRatioSlider] -- add your slider handling code here..
+        //[/UserSliderCode_amRatioSlider]
+    }
+    else if (sliderThatWasMoved == fmIndexSlider)
+    {
+        //[UserSliderCode_fmIndexSlider] -- add your slider handling code here..
+        //[/UserSliderCode_fmIndexSlider]
+    }
+    else if (sliderThatWasMoved == fmRatioSlider)
+    {
+        //[UserSliderCode_fmRatioSlider] -- add your slider handling code here..
+        //[/UserSliderCode_fmRatioSlider]
+    }
+    else if (sliderThatWasMoved == rmIndexSlider)
+    {
+        //[UserSliderCode_rmIndexSlider] -- add your slider handling code here..
+        //[/UserSliderCode_rmIndexSlider]
+    }
+    else if (sliderThatWasMoved == rmRatioSlider)
+    {
+        //[UserSliderCode_rmRatioSlider] -- add your slider handling code here..
+        //[/UserSliderCode_rmRatioSlider]
     }
 
     //[UsersliderValueChanged_Post]
@@ -365,18 +410,8 @@ BEGIN_JUCER_METADATA
     <TEXT pos="433 190 60 30" fill="solid: ff000000" hasStroke="0" text="RingMod"
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
   </BACKGROUND>
-  <SLIDER name="valWSlider" id="f9b19e9d28bbf663" memberName="valWSlider"
-          virtualName="" explicitFocusOrder="0" pos="152 176 39 56" textboxbkgd="ffffff"
-          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
-          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
-  <SLIDER name="valWSlider" id="133dec8e0074a1ab" memberName="valNSlider"
-          virtualName="" explicitFocusOrder="0" pos="272 48 39 56" textboxbkgd="ffffff"
-          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
-          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
-  <SLIDER name="valESlider" id="eb09575c8b3f3e8b" memberName="valESlider"
-          virtualName="" explicitFocusOrder="0" pos="400 176 39 56" textboxbkgd="ffffff"
+  <SLIDER name="valWSlider" id="f9b19e9d28bbf663" memberName="amIndexSlider"
+          virtualName="" explicitFocusOrder="0" pos="151 151 39 56" textboxbkgd="ffffff"
           textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1" needsCallback="1"/>
@@ -428,6 +463,31 @@ BEGIN_JUCER_METADATA
   <COMBOBOX name="Midi Selector Box" id="92c8e8d5e0c9bf7" memberName="midiSelBox"
             virtualName="" explicitFocusOrder="0" pos="431 19 150 24" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
+  <SLIDER name="valWSlider" id="c773ef2d3b92e5eb" memberName="amRatioSlider"
+          virtualName="" explicitFocusOrder="0" pos="150 210 39 56" textboxbkgd="ffffff"
+          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
+          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
+  <SLIDER name="valWSlider" id="6c2821e02be2e615" memberName="fmIndexSlider"
+          virtualName="" explicitFocusOrder="0" pos="298 49 39 56" textboxbkgd="ffffff"
+          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
+          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
+  <SLIDER name="valWSlider" id="98186883b7300eb0" memberName="fmRatioSlider"
+          virtualName="" explicitFocusOrder="0" pos="252 49 39 56" textboxbkgd="ffffff"
+          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
+          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
+  <SLIDER name="valWSlider" id="f9778f261b9db5fa" memberName="rmIndexSlider"
+          virtualName="" explicitFocusOrder="0" pos="398 204 39 56" textboxbkgd="ffffff"
+          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
+          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
+  <SLIDER name="valWSlider" id="bc8eb6df476c4dc2" memberName="rmRatioSlider"
+          virtualName="" explicitFocusOrder="0" pos="397 149 39 56" textboxbkgd="ffffff"
+          textboxoutline="808080" min="0" max="10" int="0" style="RotaryHorizontalVerticalDrag"
+          textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1" needsCallback="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

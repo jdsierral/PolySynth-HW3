@@ -59,9 +59,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> valWSlider;
-    ScopedPointer<Slider> valNSlider;
-    ScopedPointer<Slider> valESlider;
+    ScopedPointer<Slider> amIndexSlider;
     ScopedPointer<Slider> attackSlider;
     ScopedPointer<Slider> interNSlider;
     ScopedPointer<Slider> interSSlider;
@@ -72,6 +70,11 @@ private:
     ScopedPointer<Slider> releaseSlider;
     ScopedPointer<Slider> volSlider;
     ScopedPointer<ComboBox> midiSelBox;
+    ScopedPointer<Slider> amRatioSlider;
+    ScopedPointer<Slider> fmIndexSlider;
+    ScopedPointer<Slider> fmRatioSlider;
+    ScopedPointer<Slider> rmIndexSlider;
+    ScopedPointer<Slider> rmRatioSlider;
     Path internalPath1;
 
 

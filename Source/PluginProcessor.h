@@ -11,8 +11,10 @@
 #ifndef PLUGINPROCESSOR_H_INCLUDED
 #define PLUGINPROCESSOR_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthVoice.h"
+#include "PluginParams.h"
+#include "OnePoleLPF.h"
+#include "Tremolo.h"
 
 
 //==============================================================================
@@ -56,9 +58,58 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+	
+	//==============================================================================
+	//==============================================================================
+	
+	void setGUIFlag() {
+		guiFlag = true;
+	}
+	
+	void clearGUIFlag() {
+		guiFlag = false;
+	}
+	
+	bool getGUIFlag() {
+		return guiFlag;
+	}
+	
+	//==============================================================================
+	//==============================================================================
+	
 
-private:
+	AudioParameterCustomFloat* fmIndex;
+	AudioParameterCustomFloat* amIndex;
+	AudioParameterCustomFloat* fmRatio;
+	AudioParameterCustomFloat* amRatio;
+	AudioParameterCustomFloat* rmRatio;
+	AudioParameterCustomFloat* xPos;
+	AudioParameterCustomFloat* yPos;
+	AudioParameterCustomFloat* attack;
+	AudioParameterCustomFloat* decay;
+	AudioParameterCustomFloat* sustain;
+	AudioParameterCustomFloat* release;
+	AudioParameterCustomFloat* tremDepth;
+	AudioParameterCustomFloat* tremFreq;
+	AudioParameterCustomFloat* phaseDelta;
+	AudioParameterCustomFloat* vol;
+	
+	
+	SynthVoice* synthVoice[20];
 	Synthesiser synth;
+	Tremolo tremolo;
+private:
+	//==============================================================================
+	//==============================================================================
+	bool guiFlag;
+	ValueFilter mainVol;
+	const int numVoices = 20;
+	
+	//==============================================================================
+	//==============================================================================
+	
+	
+
 	
 	//==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PolySynthAudioProcessor)

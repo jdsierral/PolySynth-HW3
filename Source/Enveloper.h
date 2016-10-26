@@ -32,7 +32,7 @@ public:
 	// the second on the initialization of this object on
 	// the processors constructor
 	
-	Enveloper();
+	Enveloper(int sampleRate);
 	Enveloper(float a, float d, float s, float r);
 	~Enveloper();
 	
@@ -40,7 +40,7 @@ public:
 	
 	bool isOn();
 	
-	void setSampleRate(float newSampleRate);
+	static void setSampleRate(float newSampleRate);
 	
 	// sets attack time which sets its corresponding pole
 	void setAttackTime(float newTime);
@@ -60,6 +60,8 @@ public:
 	
 private:
 	
+	static double sampleRate;
+	
 	// notice how each state has its own pole
 	
 	state curState;
@@ -67,7 +69,6 @@ private:
 	bool noteOn;
 	float level;
 	float delay;
-	float sampleRate;
 	
 	float attackTime;
 	float attackPole;
