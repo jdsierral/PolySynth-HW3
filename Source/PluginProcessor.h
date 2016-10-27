@@ -91,14 +91,16 @@ public:
 	AudioParameterCustomFloat* release;
 	AudioParameterCustomFloat* tremDepth;
 	AudioParameterCustomFloat* tremFreq;
-	AudioParameterCustomFloat* phaseDelta;
+	AudioParameterCustomFloat* tremPhase;
+	AudioParameterCustomFloat* distDrive;
+	AudioParameterCustomFloat* distGain;
 	AudioParameterCustomFloat* vol;
 	
 	
 	SynthVoice* synthVoice[20];
+private:
 	Synthesiser synth;
 	Tremolo tremolo;
-private:
 	//==============================================================================
 	//==============================================================================
 	bool guiFlag;

@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Enveloper.h"
 #include "Generator.h"
+#include "Distortion.h"
 
 
 struct SynthSound :				public SynthesiserSound
@@ -51,9 +52,15 @@ public:
 		return env;
 	}
 	
+	Distortion* getDistortion() {
+		return &dist;
+	}
+	
 private:
 	ScopedPointer<Generator>	gen;
 	ScopedPointer<Enveloper>	env;
+	
+	Distortion dist;
 	
 	bool tailOff;
 	float level;

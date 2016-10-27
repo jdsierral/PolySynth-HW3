@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+class XYZone;
 //[/Headers]
 
 
@@ -46,11 +47,13 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+	void xyZoneChange(){};
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
+    void childrenChanged() override;
 
 
 
@@ -64,8 +67,6 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> interWSlider;
-    ScopedPointer<Slider> interSSlider;
     ScopedPointer<Slider> fmRatioSlider;
     ScopedPointer<Slider> fmIndexSlider;
     ScopedPointer<Slider> amIndexSlider;
@@ -76,11 +77,12 @@ private:
     ScopedPointer<Slider> sustainSlider;
     ScopedPointer<Slider> releaseSlider;
     ScopedPointer<Slider> volSlider;
-    ScopedPointer<Slider> slider;
-    ScopedPointer<Slider> slider2;
-    ScopedPointer<Slider> slider3;
     ScopedPointer<Slider> tremDepthSlider;
     ScopedPointer<Slider> tremFreqSlider;
+    ScopedPointer<Slider> tremPhaseSlider;
+    ScopedPointer<Slider> distDriveSlider;
+    ScopedPointer<Slider> distGainSlider;
+    ScopedPointer<XYZone> xyZone;
     Path internalPath1;
 
 

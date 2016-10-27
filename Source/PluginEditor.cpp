@@ -18,7 +18,7 @@
 */
 
 //[Headers] You can add your own extra header files here...
-
+#include "XYZone.h"
 //[/Headers]
 
 #include "PluginEditor.h"
@@ -33,18 +33,6 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
-
-    addAndMakeVisible (interWSlider = new Slider ("interWSlider"));
-    interWSlider->setRange (0, 1, 0);
-    interWSlider->setSliderStyle (Slider::LinearVertical);
-    interWSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    interWSlider->addListener (this);
-
-    addAndMakeVisible (interSSlider = new Slider ("interSSlider"));
-    interSSlider->setRange (0, 1, 0);
-    interSSlider->setSliderStyle (Slider::LinearHorizontal);
-    interSSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    interSSlider->addListener (this);
 
     addAndMakeVisible (fmRatioSlider = new Slider ("FM Ratio Slider"));
     fmRatioSlider->setRange (0, 10, 0.1);
@@ -124,24 +112,6 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
     volSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     volSlider->addListener (this);
 
-    addAndMakeVisible (slider = new Slider ("new slider"));
-    slider->setRange (0, 1, 0);
-    slider->setSliderStyle (Slider::LinearHorizontal);
-    slider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    slider->addListener (this);
-
-    addAndMakeVisible (slider2 = new Slider ("new slider"));
-    slider2->setRange (0, 1, 0);
-    slider2->setSliderStyle (Slider::LinearHorizontal);
-    slider2->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    slider2->addListener (this);
-
-    addAndMakeVisible (slider3 = new Slider ("new slider"));
-    slider3->setRange (0, 1, 0);
-    slider3->setSliderStyle (Slider::LinearHorizontal);
-    slider3->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    slider3->addListener (this);
-
     addAndMakeVisible (tremDepthSlider = new Slider ("Tremolo Depth Slider"));
     tremDepthSlider->setRange (0, 1, 0);
     tremDepthSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
@@ -154,6 +124,27 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
     tremFreqSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     tremFreqSlider->addListener (this);
 
+    addAndMakeVisible (tremPhaseSlider = new Slider ("Tremolo Phase Slider"));
+    tremPhaseSlider->setRange (0, 180, 1);
+    tremPhaseSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    tremPhaseSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    tremPhaseSlider->addListener (this);
+
+    addAndMakeVisible (distDriveSlider = new Slider ("Distortion Drive Slider"));
+    distDriveSlider->setRange (-5, 5, 0);
+    distDriveSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    distDriveSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    distDriveSlider->addListener (this);
+
+    addAndMakeVisible (distGainSlider = new Slider ("Distortion Gain Slider"));
+    distGainSlider->setRange (-60, 0, 0);
+    distGainSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
+    distGainSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    distGainSlider->addListener (this);
+
+    addAndMakeVisible (xyZone = new XYZone (*this));
+    xyZone->setName ("XY Zone");
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -162,6 +153,7 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
 
 
     //[Constructor] You can add your own custom stuff here..
+
     //[/Constructor]
 }
 
@@ -170,8 +162,6 @@ PolySynthAudioProcessorEditor::~PolySynthAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    interWSlider = nullptr;
-    interSSlider = nullptr;
     fmRatioSlider = nullptr;
     fmIndexSlider = nullptr;
     amIndexSlider = nullptr;
@@ -182,11 +172,12 @@ PolySynthAudioProcessorEditor::~PolySynthAudioProcessorEditor()
     sustainSlider = nullptr;
     releaseSlider = nullptr;
     volSlider = nullptr;
-    slider = nullptr;
-    slider2 = nullptr;
-    slider3 = nullptr;
     tremDepthSlider = nullptr;
     tremFreqSlider = nullptr;
+    tremPhaseSlider = nullptr;
+    distDriveSlider = nullptr;
+    distGainSlider = nullptr;
+    xyZone = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -203,16 +194,6 @@ void PolySynthAudioProcessorEditor::paint (Graphics& g)
 
     g.setColour (Colour (0xff2aa596));
     g.fillPath (internalPath1);
-
-    g.setColour (Colour (0xff9ba52a));
-    g.fillRect (189, 110, 194, 194);
-
-    g.setGradientFill (ColourGradient (Colour (0xff929292),
-                                       310.0f, 213.0f,
-                                       Colour (0xff353535),
-                                       298.0f, 198.0f,
-                                       true));
-    g.fillEllipse (275.0f, 188.0f, 40.0f, 40.0f);
 
     g.setColour (Colours::black);
     g.setFont (Font (49.20f, Font::plain));
@@ -240,8 +221,8 @@ void PolySynthAudioProcessorEditor::paint (Graphics& g)
 
     g.setColour (Colours::black);
     g.setFont (Font (15.00f, Font::plain));
-    g.drawText (TRANS("RingMod"),
-                425, 190, 60, 30,
+    g.drawText (TRANS("RM"),
+                423, 188, 33, 30,
                 Justification::centred, true);
 
     g.setColour (Colours::black);
@@ -271,22 +252,16 @@ void PolySynthAudioProcessorEditor::paint (Graphics& g)
     g.setColour (Colours::black);
     g.setFont (Font (15.00f, Font::plain));
     g.drawText (TRANS("Ratio"),
-                429, 148, 49, 32,
+                383, 204, 49, 32,
+                Justification::centred, true);
+
+    g.setColour (Colours::black);
+    g.setFont (Font (15.00f, Font::plain));
+    g.drawText (TRANS("ADSR"),
+                188, 345, 200, 30,
                 Justification::centred, true);
 
     //[UserPaint] Add your own custom painting code here..
-
-
-//	g.setGradientFill (ColourGradient (Colour (0xff929292),
-//									   310.0f, 213.0f,
-//									   Colour (0xff353535),
-//									   298.0f, 198.0f,
-//									   true));
-//	float x = 189 + matrixX * 194;
-//	float y = 244 + matrixY * 194;
-//	float w = 97;
-//
-//	g.fillEllipse (x, y, 40.f, 40.f);
     //[/UserPaint]
 }
 
@@ -295,23 +270,22 @@ void PolySynthAudioProcessorEditor::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    interWSlider->setBounds (171, 101, 29, 208);
-    interSSlider->setBounds (180, 295, 207, 24);
     fmRatioSlider->setBounds (244, 49, 39, 56);
     fmIndexSlider->setBounds (290, 49, 39, 56);
     amIndexSlider->setBounds (143, 151, 39, 56);
     amRatioSlider->setBounds (142, 210, 39, 56);
-    rmRatioSlider->setBounds (389, 149, 39, 56);
+    rmRatioSlider->setBounds (384, 160, 39, 56);
     attackSlider->setBounds (225, 312, 29, 42);
     decaySlider->setBounds (259, 312, 29, 42);
     sustainSlider->setBounds (289, 313, 29, 42);
     releaseSlider->setBounds (322, 314, 29, 42);
     volSlider->setBounds (461, 291, 125, 103);
-    slider->setBounds (432, 16, 150, 24);
-    slider2->setBounds (432, 40, 150, 24);
-    slider3->setBounds (432, 64, 150, 24);
-    tremDepthSlider->setBounds (32, 312, 48, 56);
-    tremFreqSlider->setBounds (96, 312, 48, 56);
+    tremDepthSlider->setBounds (64, 264, 48, 56);
+    tremFreqSlider->setBounds (24, 328, 48, 56);
+    tremPhaseSlider->setBounds (104, 328, 48, 56);
+    distDriveSlider->setBounds (500, 215, 48, 56);
+    distGainSlider->setBounds (396, 317, 48, 56);
+    xyZone->setBounds (184, 105, 200, 200);
     internalPath1.clear();
     internalPath1.startNewSubPath (288.0f, 24.0f);
     internalPath1.lineTo (467.0f, 202.0f);
@@ -328,24 +302,7 @@ void PolySynthAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMov
     //[UsersliderValueChanged_Pre]
     //[/UsersliderValueChanged_Pre]
 
-    if (sliderThatWasMoved == interWSlider)
-    {
-        //[UserSliderCode_interWSlider] -- add your slider handling code here..
-//		matrixX = (interWSlider->getValue() + interESlider->getValue())/2;
-//		*processor.xPos = matrixX;
-
-		*processor.yPos = interWSlider->getValue();
-        //[/UserSliderCode_interWSlider]
-    }
-    else if (sliderThatWasMoved == interSSlider)
-    {
-        //[UserSliderCode_interSSlider] -- add your slider handling code here..
-//		matrixY = (interNSlider->getValue() + interSSlider->getValue())/2;
-//		*processor.yPos = matrixY;
-		*processor.xPos = interSSlider->getValue();
-        //[/UserSliderCode_interSSlider]
-    }
-    else if (sliderThatWasMoved == fmRatioSlider)
+    if (sliderThatWasMoved == fmRatioSlider)
     {
         //[UserSliderCode_fmRatioSlider] -- add your slider handling code here..
 		*processor.fmRatio = fmRatioSlider->getValue();
@@ -405,45 +362,45 @@ void PolySynthAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMov
 		*processor.vol = volSlider->getValue();
         //[/UserSliderCode_volSlider]
     }
-    else if (sliderThatWasMoved == slider)
-    {
-        //[UserSliderCode_slider] -- add your slider handling code here..
-		for (int i = 0; i < 20; i++){
-			processor.synthVoice[i]->getGenerator()->setAmGain(slider->getValue());
-		}
-        //[/UserSliderCode_slider]
-    }
-    else if (sliderThatWasMoved == slider2)
-    {
-        //[UserSliderCode_slider2] -- add your slider handling code here..
-		for (int i = 0; i < 20; i++){
-			processor.synthVoice[i]->getGenerator()->setFmGain(slider2->getValue());
-		}
-        //[/UserSliderCode_slider2]
-    }
-    else if (sliderThatWasMoved == slider3)
-    {
-        //[UserSliderCode_slider3] -- add your slider handling code here..
-		for (int i = 0; i < 20; i++){
-			processor.synthVoice[i]->getGenerator()->setRmGain(slider3->getValue());
-		}
-        //[/UserSliderCode_slider3]
-    }
     else if (sliderThatWasMoved == tremDepthSlider)
     {
         //[UserSliderCode_tremDepthSlider] -- add your slider handling code here..
-		processor.tremolo.setDepth(tremDepthSlider->getValue());
+		*processor.tremDepth = tremDepthSlider->getValue();
         //[/UserSliderCode_tremDepthSlider]
     }
     else if (sliderThatWasMoved == tremFreqSlider)
     {
         //[UserSliderCode_tremFreqSlider] -- add your slider handling code here..
-		processor.tremolo.setFreq(tremFreqSlider->getValue());
+		*processor.tremFreq = tremFreqSlider->getValue();
         //[/UserSliderCode_tremFreqSlider]
+    }
+    else if (sliderThatWasMoved == tremPhaseSlider)
+    {
+        //[UserSliderCode_tremPhaseSlider] -- add your slider handling code here..
+		*processor.tremPhase = tremPhaseSlider->getValue();
+        //[/UserSliderCode_tremPhaseSlider]
+    }
+    else if (sliderThatWasMoved == distDriveSlider)
+    {
+        //[UserSliderCode_distDriveSlider] -- add your slider handling code here..
+		*processor.distDrive = distDriveSlider->getValue();
+        //[/UserSliderCode_distDriveSlider]
+    }
+    else if (sliderThatWasMoved == distGainSlider)
+    {
+        //[UserSliderCode_distGainSlider] -- add your slider handling code here..
+		*processor.distGain = distGainSlider->getValue();
+        //[/UserSliderCode_distGainSlider]
     }
 
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
+}
+
+void PolySynthAudioProcessorEditor::childrenChanged()
+{
+    //[UserCode_childrenChanged] -- Add your code here...
+    //[/UserCode_childrenChanged]
 }
 
 
@@ -451,7 +408,25 @@ void PolySynthAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMov
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void PolySynthAudioProcessorEditor::timerCallback() {
 	repaint();
-	if(processor.getGUIFlag()){}
+	if(processor.getGUIFlag()){
+
+		//Missing XY slider
+		fmRatioSlider->setValue(*processor.fmRatio, dontSendNotification);
+		fmIndexSlider->setValue(*processor.fmIndex, dontSendNotification);
+		amRatioSlider->setValue(*processor.amRatio, dontSendNotification);
+		amIndexSlider->setValue(*processor.amIndex, dontSendNotification);
+		rmRatioSlider->setValue(*processor.rmRatio, dontSendNotification);
+		attackSlider->setValue(*processor.attack, dontSendNotification);
+		decaySlider->setValue(*processor.decay, dontSendNotification);
+		sustainSlider->setValue(*processor.sustain, dontSendNotification);
+		releaseSlider->setValue(*processor.release, dontSendNotification);
+		volSlider->setValue(*processor.vol, dontSendNotification);
+		tremDepthSlider->setValue(*processor.tremDepth, dontSendNotification);
+		tremFreqSlider->setValue(*processor.tremFreq, dontSendNotification);
+		tremPhaseSlider->setValue(*processor.tremPhase, dontSendNotification);
+		distDriveSlider->setValue(*processor.distDrive, dontSendNotification);
+		distGainSlider->setValue(*processor.distGain, dontSendNotification);
+	}
 }
 //[/MiscUserCode]
 
@@ -468,13 +443,13 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="PolySynthAudioProcessorEditor"
                  componentName="" parentClasses="public AudioProcessorEditor, public Timer"
                  constructorParams="PolySynthAudioProcessor&amp; p" variableInitialisers="AudioProcessorEditor (&amp;p), processor (p)"
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
+                 snapPixels="8" snapActive="0" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="600" initialHeight="400">
+  <METHODS>
+    <METHOD name="childrenChanged()"/>
+  </METHODS>
   <BACKGROUND backgroundColour="ffffffff">
     <PATH pos="0 0 100 100" fill="solid: ff2aa596" hasStroke="0" nonZeroWinding="1">s 288 24 l 467 202 l 288 384 l 104 200 x</PATH>
-    <RECT pos="189 110 194 194" fill="solid: ff9ba52a" hasStroke="0"/>
-    <ELLIPSE pos="275 188 40 40" fill=" radial: 310 213, 298 198, 0=ff929292, 1=ff353535"
-             hasStroke="0"/>
     <TEXT pos="25 9 221 68" fill="solid: ff000000" hasStroke="0" text="PolySynth"
           fontname="Default font" fontsize="49.200000000000002842" bold="0"
           italic="0" justification="36"/>
@@ -484,7 +459,7 @@ BEGIN_JUCER_METADATA
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
     <TEXT pos="105 186 36 30" fill="solid: ff000000" hasStroke="0" text="AM"
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
-    <TEXT pos="425 190 60 30" fill="solid: ff000000" hasStroke="0" text="RingMod"
+    <TEXT pos="423 188 33 30" fill="solid: ff000000" hasStroke="0" text="RM"
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
     <TEXT pos="87 144 49 32" fill="solid: ff000000" hasStroke="0" text="Index"
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
@@ -494,19 +469,11 @@ BEGIN_JUCER_METADATA
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
     <TEXT pos="207 83 49 32" fill="solid: ff000000" hasStroke="0" text="Ratio"
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
-    <TEXT pos="429 148 49 32" fill="solid: ff000000" hasStroke="0" text="Ratio"
+    <TEXT pos="383 204 49 32" fill="solid: ff000000" hasStroke="0" text="Ratio"
+          fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
+    <TEXT pos="188 345 200 30" fill="solid: ff000000" hasStroke="0" text="ADSR"
           fontname="Default font" fontsize="15" bold="0" italic="0" justification="36"/>
   </BACKGROUND>
-  <SLIDER name="interWSlider" id="9f5e4de401e2d219" memberName="interWSlider"
-          virtualName="" explicitFocusOrder="0" pos="171 101 29 208" min="0"
-          max="1" int="0" style="LinearVertical" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
-          needsCallback="1"/>
-  <SLIDER name="interSSlider" id="ea0d1c28cb487d37" memberName="interSSlider"
-          virtualName="" explicitFocusOrder="0" pos="180 295 207 24" min="0"
-          max="1" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
-          needsCallback="1"/>
   <SLIDER name="FM Ratio Slider" id="98186883b7300eb0" memberName="fmRatioSlider"
           virtualName="" explicitFocusOrder="0" pos="244 49 39 56" textboxbkgd="ffffff"
           textboxoutline="808080" min="0" max="10" int="0.10000000000000000555"
@@ -530,7 +497,7 @@ BEGIN_JUCER_METADATA
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
           needsCallback="1"/>
   <SLIDER name="RM Ratio Slider" id="bc8eb6df476c4dc2" memberName="rmRatioSlider"
-          virtualName="" explicitFocusOrder="0" pos="389 149 39 56" textboxbkgd="ffffff"
+          virtualName="" explicitFocusOrder="0" pos="384 160 39 56" textboxbkgd="ffffff"
           textboxoutline="808080" min="0" max="10" int="0.10000000000000000555"
           style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
@@ -560,30 +527,33 @@ BEGIN_JUCER_METADATA
           max="12" int="0" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
           needsCallback="1"/>
-  <SLIDER name="new slider" id="38b363b656ff15f6" memberName="slider" virtualName=""
-          explicitFocusOrder="0" pos="432 16 150 24" min="0" max="1" int="0"
-          style="LinearHorizontal" textBoxPos="NoTextBox" textBoxEditable="1"
-          textBoxWidth="80" textBoxHeight="20" skewFactor="1" needsCallback="1"/>
-  <SLIDER name="new slider" id="54196f3eb7260ecc" memberName="slider2"
-          virtualName="" explicitFocusOrder="0" pos="432 40 150 24" min="0"
-          max="1" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
-          needsCallback="1"/>
-  <SLIDER name="new slider" id="4f02dbfe2ffc1a09" memberName="slider3"
-          virtualName="" explicitFocusOrder="0" pos="432 64 150 24" min="0"
-          max="1" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
-          needsCallback="1"/>
   <SLIDER name="Tremolo Depth Slider" id="2d314adf3f8202e5" memberName="tremDepthSlider"
-          virtualName="" explicitFocusOrder="0" pos="32 312 48 56" min="0"
+          virtualName="" explicitFocusOrder="0" pos="64 264 48 56" min="0"
           max="1" int="0" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
           needsCallback="1"/>
   <SLIDER name="Tremolo Frequency Slider" id="42bfc725f732a7a3" memberName="tremFreqSlider"
-          virtualName="" explicitFocusOrder="0" pos="96 312 48 56" min="0"
+          virtualName="" explicitFocusOrder="0" pos="24 328 48 56" min="0"
           max="20" int="0" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
           needsCallback="1"/>
+  <SLIDER name="Tremolo Phase Slider" id="e7c3e361c80fee6a" memberName="tremPhaseSlider"
+          virtualName="" explicitFocusOrder="0" pos="104 328 48 56" min="0"
+          max="180" int="1" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
+  <SLIDER name="Distortion Drive Slider" id="69d68112913a4fab" memberName="distDriveSlider"
+          virtualName="" explicitFocusOrder="0" pos="500 215 48 56" min="-5"
+          max="5" int="0" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
+  <SLIDER name="Distortion Gain Slider" id="3ae04b2000770346" memberName="distGainSlider"
+          virtualName="" explicitFocusOrder="0" pos="396 317 48 56" min="-60"
+          max="0" int="0" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
+  <GENERICCOMPONENT name="XY Zone" id="b9f0823d5bc0bf89" memberName="xyZone" virtualName=""
+                    explicitFocusOrder="0" pos="184 105 200 200" class="XYZone" params="*this"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

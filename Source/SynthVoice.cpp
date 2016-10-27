@@ -50,7 +50,10 @@ void SynthVoice::controllerMoved (int ccNum, int ccVal) {
 void SynthVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) {
 	if(env->isPlaying() || env->isOn()){
 		while (--numSamples >= 0){
-			float out = (float) env->tick() * gen->tick() * level;
+			float out = (float)gen->tick();
+			
+			out = dist.process(out);
+			out = out * env->tick() * level;
 			for (int i = outputBuffer.getNumChannels(); --i >= 0;)
 			{
 				outputBuffer.addSample (i, startSample, out);

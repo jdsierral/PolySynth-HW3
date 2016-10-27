@@ -105,8 +105,6 @@ float Generator::tick(){
 	fmOsc->setFreq(fmBaseFreq.tick() + fmIndex.tick() * fmMod->tick());
 	float fmSample = fmGain.tick() * fmOsc->tick();
 	
-//	carOsc->setFreq(baseFreq.tick() +
-//				   modOsc->tick() * modLevel.tick() * modEnv->tick());
 	
-	return (fmSample + amSample + rmSample)/3 ;
+	return (fmSample + amSample + rmSample)/6 ;
 }

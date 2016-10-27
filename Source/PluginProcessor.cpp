@@ -96,17 +96,34 @@ PolySynthAudioProcessor::PolySynthAudioProcessor()
 	
 	auto tremDepthCallback = [this] (float newValue) {
 		tremolo.setDepth(newValue);
+		DBG("Depth: "<<newValue);
 	};
 	
 	auto tremFreqCallback = [this] (float newValue) {
 		tremolo.setFreq(newValue);
+		DBG("TFreq: "<<newValue);
 	};
 
-	auto phaseDeltaCallback = [this] (float newValue) {
+	auto tremPhaseCallback = [this] (float newValue) {
 		tremolo.setPhaseDelta(newValue);
 		setGUIFlag();
 		DBG("phaseD: "<<newValue);
 	};
+	
+	auto distDriveCallback = [this] (float newValue) {
+		for(int i = 0; i < synth.getNumVoices(); i++) {
+			synthVoice[i]->getDistortion()->setAmount(newValue);
+		}
+		DBG("DistDrive: "<<newValue);
+		setGUIFlag();
+	};
+	auto distGainCallback = [this] (float newValue) {
+		for(int i = 0; i < synth.getNumVoices(); i++) {
+			synthVoice[i]->getDistortion()->setGain(newValue);
+		}
+		DBG("DistGain: " <<newValue);
+	};
+	
 	auto volCallback = [this] (float newValue) {
 		mainVol.set(Decibels::decibelsToGain(newValue));
 		setGUIFlag();
@@ -145,9 +162,13 @@ PolySynthAudioProcessor::PolySynthAudioProcessor()
 	("tremDepth", "Tremolo Depth", 0.0, 1.0f, 0.f, tremDepthCallback);
 	tremFreq = new AudioParameterCustomFloat
 	("tremFreq", "Tremolo Frequency", 0.f, 20.f, 0.f, tremFreqCallback);
+	tremPhase = new AudioParameterCustomFloat
+	("phase", "Phase Delta", 0, 180, 0, tremPhaseCallback);
 	
-	phaseDelta = new AudioParameterCustomFloat
-	("phase", "Phase Delta", 0, 180, 0, phaseDeltaCallback);
+	distDrive = new AudioParameterCustomFloat
+	("distDrive", "Distortion Drive", -5, 5, 0, distDriveCallback);
+	distGain = new AudioParameterCustomFloat
+	("distGain", "Distortion Gain", -60, 0, 0, distGainCallback);
 	
 	vol = new AudioParameterCustomFloat
 	("vol", "Volume", -60, 12, -12, volCallback);
@@ -166,7 +187,9 @@ PolySynthAudioProcessor::PolySynthAudioProcessor()
 	addParameter(release);
 	addParameter(tremDepth);
 	addParameter(tremFreq);
-	addParameter(phaseDelta);
+	addParameter(tremPhase);
+	addParameter(distDrive);
+	addParameter(distGain);
 	addParameter(vol);
 	
 	
@@ -280,13 +303,10 @@ void PolySynthAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
 	for(int chan = 0; chan < buffer.getNumChannels(); chan++) {
 		float* data = buffer.getWritePointer(chan);
 		for (int i = 0; i < bufSize; i++) {
+			if (data[i] > 1.0f) DBG("Clip!!!");
 			data[i] = data[i] * mainVol.tick() * (1 + tremolo.tick(chan));
 		}
 	}
-	
-//	buffer.applyGain(mainVol.tick());
-	
-	
 }
 
 //==============================================================================
