@@ -406,6 +406,12 @@ void PolySynthAudioProcessorEditor::childrenChanged()
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+
+void PolySynthAudioProcessorEditor::xyZoneChange(float xPos, float yPos) {
+	*processor.xPos = (xPos - 10)/180.f;
+	*processor.yPos = (yPos - 10)/180.f;
+}
+
 void PolySynthAudioProcessorEditor::timerCallback() {
 	repaint();
 	if(processor.getGUIFlag()){

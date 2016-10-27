@@ -14,15 +14,14 @@
 
 Generator::Generator(int sampleRate)
 {
-	fmRatio.set(3);
-	amRatio.set(2);
-	rmRatio.set(2);
-	fmIndex.set(10);
-	amIndex.set(1);
-	rmIndex.set(0.5);
-	fmGain.set(1);
-	amGain.set(1);
-	rmGain.set(1);
+	fmRatio.set(3.f);
+	amRatio.set(2.f);
+	rmRatio.set(2.f);
+	fmIndex.set(10.f);
+	amIndex.set(1.f);
+	fmGain.set(1.f);
+	amGain.set(0.f);
+	rmGain.set(0.f);
 	
 	Oscillator::setSampleRate(sampleRate);
 	fmOsc = new Oscillator(1, 0);
@@ -48,54 +47,50 @@ void Generator::setPitch(float newVal){
 	amOsc->setFreq(newVal);
 	rmOsc->setFreq(newVal);
 	
-	fmBaseFreq = newVal * fmRatio.get();
+	fmBaseFreq.set(newVal * fmRatio.tick());
 	fmMod->setFreq(fmBaseFreq.get());
-	amMod->setFreq(newVal * amRatio.get());
-	rmMod->setFreq(newVal * rmRatio.get());
+	amMod->setFreq(newVal * amRatio.tick());
+	rmMod->setFreq(newVal * rmRatio.tick());
 }
 void Generator::setFmIndex(float newVal){
-	fmIndex.set(powf(2, newVal));
+	fmIndex.set(fmBaseFreq.get() * powf(2, newVal));
 	DBG("Actual FM Index: "<<fmIndex.get());
 }
 void Generator::setAmIndex(float newVal){
-	amIndex = newVal;
+	amIndex.set(newVal);
 	DBG("Actual AM Index: "<<amIndex.get());
 }
-void Generator::setRmIndex(float newVal){
-	rmIndex = newVal;
-	DBG("Actual RM Index: "<<rmIndex.get());
-}
 void Generator::setFmRatio(float newVal){
-	fmRatio = newVal;
+	fmRatio.set(newVal);
 	DBG("Actual FM Ratio: "<<fmRatio.get());
 }
 void Generator::setAmRatio(float newVal){
-	amRatio = newVal;
+	amRatio.set(newVal);
 	DBG("Actual AM Ratio: "<<amRatio.get());
 }
 void Generator::setRmRatio(float newVal){
-	rmRatio = newVal;
+	rmRatio.set(newVal);
 	DBG("Actual RM Ratio: "<<rmRatio.get());
 }
 
 void Generator::setXWeight(float newVal){
-	rmGain = sqrt(newVal);
-	amGain = sqrt(1 - newVal);
+	rmGain.set(sqrt(newVal));
+	amGain.set(sqrt(1 - newVal));
 }
 void Generator::setYWeight(float newVal){
-	fmGain = newVal;
+	fmGain.set(newVal);
 }
 
 void Generator::setFmGain(float newVal){
-	fmGain = newVal;
+	fmGain.set(newVal);
 	DBG("Actual FM Gain: "<<fmGain.get());
 }
 void Generator::setAmGain(float newVal){
-	amGain = newVal;
+	amGain.set(newVal);
 	DBG("Actual AM Gain: "<<amGain.get());
 }
 void Generator::setRmGain(float newVal){
-	rmGain = newVal;
+	rmGain.set(newVal);
 	DBG("Actual RM Gain: "<<rmGain.get());
 }
 
@@ -104,7 +99,5 @@ float Generator::tick(){
 	float rmSample = rmGain.tick() * rmOsc->tick() * rmMod->tick();
 	fmOsc->setFreq(fmBaseFreq.tick() + fmIndex.tick() * fmMod->tick());
 	float fmSample = fmGain.tick() * fmOsc->tick();
-	
-	
 	return (fmSample + amSample + rmSample)/6 ;
 }

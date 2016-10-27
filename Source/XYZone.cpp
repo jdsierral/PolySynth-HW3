@@ -73,14 +73,11 @@ void XYZone::paint (Graphics& g)
     //[UserPaint] Add your own custom painting code here..
 
     g.setGradientFill (ColourGradient (Colours::white,
-                                       67.0f, 78.0f,
+                                       posX - 7.f, posY - 6.f,
                                        Colour (0xff979797),
-                                       84.0f, 96.0f,
+                                       posX + 10.f, posY + 12.f,
                                        false));
-    g.fillEllipse (74.0f, 84.0f, 20.0f, 20.0f);
-
-	g.setColour (Colours::white);
-	g.fillEllipse (posX - radi, posY - radi, 2 * radi, 2 * radi);
+	g.fillEllipse (posX - radi, posY - radi, 2 * radi, 2 * radi);	
     //[/UserPaint]
 }
 
@@ -137,6 +134,7 @@ void XYZone::mouseDoubleClick (const MouseEvent& e)
 void XYZone::setPos(float newPosX, float newPosY){
 	posX = jmin(jmax(newPosX, radi), getWidth() - radi);
 	posY = jmin(jmax(newPosY, radi), getHeight() - radi);
+	editor.xyZoneChange(posX, posY);
 	repaint();
 }
 

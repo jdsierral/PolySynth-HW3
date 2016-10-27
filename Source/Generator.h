@@ -51,7 +51,6 @@ private:
 	
 	ValueFilter fmIndex;
 	ValueFilter amIndex;
-	ValueFilter rmIndex;
 	
 	
 	ValueFilter fmBaseFreq;
