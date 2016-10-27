@@ -73,11 +73,11 @@ void XYZone::paint (Graphics& g)
     //[UserPaint] Add your own custom painting code here..
 
     g.setGradientFill (ColourGradient (Colours::white,
-                                       posX - 7.f, posY - 6.f,
+                                       xPos - 7.f, yPos - 6.f,
                                        Colour (0xff979797),
-                                       posX + 10.f, posY + 12.f,
+                                       xPos + 10.f, yPos + 12.f,
                                        false));
-	g.fillEllipse (posX - radi, posY - radi, 2 * radi, 2 * radi);	
+	g.fillEllipse (xPos - radi, yPos - radi, 2 * radi, 2 * radi);
     //[/UserPaint]
 }
 
@@ -93,21 +93,20 @@ void XYZone::resized()
 void XYZone::mouseDown (const MouseEvent& e)
 {
     //[UserCode_mouseDown] -- Add your code here...
-	if (e.position.x >= posX - radi && e.position.x <= posX + radi) {
-		if (e.position.y >= posY - radi && e.position.y <= posY + radi) {
+	if (e.position.x >= xPos - radi && e.position.x <= xPos + radi) {
+		if (e.position.y >= yPos - radi && e.position.y <= yPos + radi) {
 			cursorHit = true;
 		}
 	}
-	DBG("MouseDown");
     //[/UserCode_mouseDown]
 }
 
 void XYZone::mouseDrag (const MouseEvent& e)
 {
     //[UserCode_mouseDrag] -- Add your code here...
-
-	if (cursorHit) setPos(e.position.x, e.position.y);
-	DBG("MouseDown");
+	if (cursorHit) {
+		setValues(e.position.x, e.position.y, sendNotification);
+	}
     //[/UserCode_mouseDrag]
 }
 
@@ -115,7 +114,6 @@ void XYZone::mouseUp (const MouseEvent& e)
 {
     //[UserCode_mouseUp] -- Add your code here...
 	cursorHit = false;
-	DBG("MouseUp");
     //[/UserCode_mouseUp]
 }
 
@@ -123,7 +121,7 @@ void XYZone::mouseDoubleClick (const MouseEvent& e)
 {
     //[UserCode_mouseDoubleClick] -- Add your code here...
 	DBG("MouseUp");
-	setPos(e.position.x, e.position.y);
+	setValues(e.position.x, e.position.y, sendNotification);
     //[/UserCode_mouseDoubleClick]
 }
 
@@ -131,53 +129,14 @@ void XYZone::mouseDoubleClick (const MouseEvent& e)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
-void XYZone::setPos(float newPosX, float newPosY){
-	posX = jmin(jmax(newPosX, radi), getWidth() - radi);
-	posY = jmin(jmax(newPosY, radi), getHeight() - radi);
-	editor.xyZoneChange(posX, posY);
+void XYZone::setValues(float newXPos, float newYPos, NotificationType n){
+	xPos = jmax(jmin(newXPos, getWidth() - radi), radi);
+	yPos = jmax(jmin(newYPos, getHeight()- radi), radi);
+	if (n != dontSendNotification){
+		editor.xyZoneChange(xPos, yPos);
+	}
 	repaint();
 }
-
-//void MainEditor::mouseDown(const MouseEvent& e) {
-//
-//	// mouseListener function called whenever click is done
-//	// if mouse is inside keyboard box call envelope start and mouseDrag who will
-//	// take care of frequency setup and mainGain setup
-//
-//	if (e.position.x >= playSpaceX && e.position.x <= playSpaceX + playSpaceWidth) {
-//		if (e.position.y >= playSpaceY && e.position.y <= playSpaceY + playSpaceHeight) {
-//			processor->envelope->start();
-//			mouseDrag(e);
-//		}
-//	}
-//}
-//
-//void MainEditor::mouseUp(const MouseEvent& e) {
-//	// if mouse button is released, enveope's stop function is called
-//
-//	processor->envelope->stop();
-//}
-//
-//void MainEditor::mouseDrag(const MouseEvent& e) {
-//
-//	// the keyboard area is used to simulate a notes
-//	// its width is scaled from 0 to 13 to have a full octave of midi notes
-//	// then everything is shifted by 60 midiNotes to get to C4
-//	// the octave slider is then used to add or substract 12 and therefore
-//	// change to other octaves in keyboard range.
-//
-//	int midiNote = (int)13 * (e.position.x - playSpaceX)/playSpaceWidth + 60 + 12 * octaSlider->getValue();
-//
-//	// notice how the setFreq method receives the midiNote transformation into Hz
-//	// therefore frequencies are actually discrete on the processor.
-//
-//	processor->setFreq(MidiMessage::getMidiNoteInHertz(midiNote));
-//
-//	// level is set in relation to the keyboard area's height directly mapping it
-//	// to 0 to 1;
-//	int level = 20 * (float)((e.position.y - playSpaceY)/playSpaceHeight) - 20;
-//	processor->setMainGain(level);
-//}
 //[/MiscUserCode]
 
 

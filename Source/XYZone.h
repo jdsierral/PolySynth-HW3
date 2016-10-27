@@ -45,7 +45,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 
-	void setPos(float newPosX, float newPosY);
+	void setValues(float newPosX, float newPosY, NotificationType notification);
 
     //[/UserMethods]
 
@@ -60,8 +60,8 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	float posX;
-	float posY;
+	float xPos = 100;
+	float yPos = 100;
 	float radi = 10;
 	bool cursorHit;
 

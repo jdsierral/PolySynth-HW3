@@ -47,7 +47,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	void xyZoneChange(float xPos, float yPos);
+	void xyZoneChange(float xVal, float yVal);
     //[/UserMethods]
 
     void paint (Graphics& g) override;

@@ -74,6 +74,10 @@ public:
 		return guiFlag;
 	}
 	
+	bool getClipFlag() {
+		return clipFlag;
+	}
+	
 	//==============================================================================
 	//==============================================================================
 	
@@ -97,13 +101,14 @@ public:
 	AudioParameterCustomFloat* vol;
 	
 	
-	SynthVoice* synthVoice[20];
 private:
+	SynthVoice* synthVoice[20];
 	Synthesiser synth;
 	Tremolo tremolo;
 	//==============================================================================
 	//==============================================================================
 	bool guiFlag;
+	bool clipFlag;
 	ValueFilter mainVol;
 	const int numVoices = 20;
 	

@@ -153,7 +153,7 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
 
 
     //[Constructor] You can add your own custom stuff here..
-
+	startTimer(50);
     //[/Constructor]
 }
 
@@ -407,29 +407,33 @@ void PolySynthAudioProcessorEditor::childrenChanged()
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
-void PolySynthAudioProcessorEditor::xyZoneChange(float xPos, float yPos) {
-	*processor.xPos = (xPos - 10)/180.f;
-	*processor.yPos = (yPos - 10)/180.f;
+void PolySynthAudioProcessorEditor::xyZoneChange(float xVal, float yVal) {
+	*processor.xPos = (xVal - 10)/180.f;
+	*processor.yPos = (yVal - 10)/180.f;
 }
 
 void PolySynthAudioProcessorEditor::timerCallback() {
-	repaint();
 	if(processor.getGUIFlag()){
-
-		//Missing XY slider
+		
+		xyZone->setValues(*processor.xPos * 180.f + 10, *processor.yPos * 180.f + 10, dontSendNotification);
+		
 		fmRatioSlider->setValue(*processor.fmRatio, dontSendNotification);
 		fmIndexSlider->setValue(*processor.fmIndex, dontSendNotification);
 		amRatioSlider->setValue(*processor.amRatio, dontSendNotification);
 		amIndexSlider->setValue(*processor.amIndex, dontSendNotification);
 		rmRatioSlider->setValue(*processor.rmRatio, dontSendNotification);
+		
 		attackSlider->setValue(*processor.attack, dontSendNotification);
 		decaySlider->setValue(*processor.decay, dontSendNotification);
 		sustainSlider->setValue(*processor.sustain, dontSendNotification);
 		releaseSlider->setValue(*processor.release, dontSendNotification);
+		
 		volSlider->setValue(*processor.vol, dontSendNotification);
+		
 		tremDepthSlider->setValue(*processor.tremDepth, dontSendNotification);
 		tremFreqSlider->setValue(*processor.tremFreq, dontSendNotification);
 		tremPhaseSlider->setValue(*processor.tremPhase, dontSendNotification);
+		
 		distDriveSlider->setValue(*processor.distDrive, dontSendNotification);
 		distGainSlider->setValue(*processor.distGain, dontSendNotification);
 	}

@@ -47,10 +47,10 @@ void Generator::setPitch(float newVal){
 	amOsc->setFreq(newVal);
 	rmOsc->setFreq(newVal);
 	
-	fmBaseFreq.set(newVal * fmRatio.tick());
+	fmBaseFreq.set(newVal * fmRatio.get());
 	fmMod->setFreq(fmBaseFreq.get());
-	amMod->setFreq(newVal * amRatio.tick());
-	rmMod->setFreq(newVal * rmRatio.tick());
+	amMod->setFreq(newVal * amRatio.get());
+	rmMod->setFreq(newVal * rmRatio.get());
 }
 void Generator::setFmIndex(float newVal){
 	fmIndex.set(fmBaseFreq.get() * powf(2, newVal));
@@ -76,22 +76,10 @@ void Generator::setRmRatio(float newVal){
 void Generator::setXWeight(float newVal){
 	rmGain.set(sqrt(newVal));
 	amGain.set(sqrt(1 - newVal));
+	DBG("AmGain: "<<amGain.get()<<" RmGain: "<<rmGain.get()<<" FmGain: "<<fmGain.get());
 }
 void Generator::setYWeight(float newVal){
-	fmGain.set(newVal);
-}
-
-void Generator::setFmGain(float newVal){
-	fmGain.set(newVal);
-	DBG("Actual FM Gain: "<<fmGain.get());
-}
-void Generator::setAmGain(float newVal){
-	amGain.set(newVal);
-	DBG("Actual AM Gain: "<<amGain.get());
-}
-void Generator::setRmGain(float newVal){
-	rmGain.set(newVal);
-	DBG("Actual RM Gain: "<<rmGain.get());
+	fmGain.set(1 - newVal);
 }
 
 float Generator::tick(){

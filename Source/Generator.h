@@ -33,10 +33,6 @@ public:
 	void setXWeight(float newVal);
 	void setYWeight(float newVal);
 	
-	void setFmGain(float newVal);
-	void setAmGain(float newVal);
-	void setRmGain(float newVal);
-	
 	float tick();
 
 private:

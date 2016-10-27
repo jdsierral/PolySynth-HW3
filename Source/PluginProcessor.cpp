@@ -21,113 +21,113 @@ PolySynthAudioProcessor::PolySynthAudioProcessor()
 			synthVoice[i]->getGenerator()->setXWeight(newValue);
 		}
 		setGUIFlag();
-		DBG("XPos: "<<newValue);
+//		DBG("XPos: "<<newValue);
 	};
 	auto yPosCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getGenerator()->setYWeight(newValue);
 		}
 		setGUIFlag();
-		DBG("yPos: "<<newValue);
+//		DBG("yPos: "<<newValue);
 	};
 	auto fmRatioCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getGenerator()->setFmRatio(newValue);
 		}
 		setGUIFlag();
-		DBG("fmRatio: "<<newValue);
+//		DBG("fmRatio: "<<newValue);
 	};
 	auto fmIndexCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getGenerator()->setFmIndex(newValue);
 		}
 		setGUIFlag();
-		DBG("fmIndex: "<<newValue);
+//		DBG("fmIndex: "<<newValue);
 	};
 	auto amRatioCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getGenerator()->setAmRatio(newValue);
 		}
 		setGUIFlag();
-		DBG("amRatio: "<<newValue);
+//		DBG("amRatio: "<<newValue);
 	};
 	auto amIndexCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getGenerator()->setAmIndex(newValue);
 		}
 		setGUIFlag();
-		DBG("amIndex: "<<newValue);
+//		DBG("amIndex: "<<newValue);
 	};
 	auto rmRatioCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getGenerator()->setRmRatio(newValue);
 		}
 		setGUIFlag();
-		DBG("rmRatio: "<<newValue);
+//		DBG("rmRatio: "<<newValue);
 	};
 	auto attackCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getEnveloper()->setAttackTime(newValue/1000.f);
 		}
 		setGUIFlag();
-		DBG("Attak: "<<newValue);
+//		DBG("Attak: "<<newValue);
 	};
 	auto decayCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getEnveloper()->setDecayTime(newValue/1000.f);
 		}
 		setGUIFlag();
-		DBG("Deachy: "<<newValue);
+//		DBG("Deachy: "<<newValue);
 	};
 	auto sustainCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getEnveloper()->setSustainLevel(newValue);
 		}
 		setGUIFlag();
-		DBG("Sust: "<<newValue);
+//		DBG("Sust: "<<newValue);
 	};
 	auto releaseCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getEnveloper()->setReleaseTime(newValue/1000.f);
 		}
 		setGUIFlag();
-		DBG("Rela: "<<newValue);
+//		DBG("Rela: "<<newValue);
 	};
 	
 	auto tremDepthCallback = [this] (float newValue) {
 		tremolo.setDepth(newValue);
-		DBG("Depth: "<<newValue);
+//		DBG("Depth: "<<newValue);
 	};
 	
 	auto tremFreqCallback = [this] (float newValue) {
 		tremolo.setFreq(newValue);
-		DBG("TFreq: "<<newValue);
+//		DBG("TFreq: "<<newValue);
 	};
 
 	auto tremPhaseCallback = [this] (float newValue) {
 		tremolo.setPhaseDelta(newValue);
 		setGUIFlag();
-		DBG("phaseD: "<<newValue);
+//		DBG("phaseD: "<<newValue);
 	};
 	
 	auto distDriveCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getDistortion()->setAmount(newValue);
 		}
-		DBG("DistDrive: "<<newValue);
+//		DBG("DistDrive: "<<newValue);
 		setGUIFlag();
 	};
 	auto distGainCallback = [this] (float newValue) {
 		for(int i = 0; i < synth.getNumVoices(); i++) {
 			synthVoice[i]->getDistortion()->setGain(newValue);
 		}
-		DBG("DistGain: " <<newValue);
+//		DBG("DistGain: " <<newValue);
 	};
 	
 	auto volCallback = [this] (float newValue) {
 		mainVol.set(Decibels::decibelsToGain(newValue));
 		setGUIFlag();
-		DBG("Vol: "<<newValue);
+//		DBG("Vol: "<<newValue);
 	};
 	
 	
@@ -303,7 +303,7 @@ void PolySynthAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
 	for(int chan = 0; chan < buffer.getNumChannels(); chan++) {
 		float* data = buffer.getWritePointer(chan);
 		for (int i = 0; i < bufSize; i++) {
-			if (data[i] > 1.0f) DBG("Clip!!!");
+			if (data[i] > 1.0f) clipFlag = true;
 			data[i] = data[i] * mainVol.tick() * (1 + tremolo.tick(chan));
 		}
 	}
@@ -328,15 +328,58 @@ AudioProcessorEditor* PolySynthAudioProcessor::createEditor()
 //==============================================================================
 void PolySynthAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+	
+	XmlElement settings ("PluginSettings");
+	
+	settings.setAttribute(fmIndex->paramID, *fmIndex);
+	settings.setAttribute(amIndex->paramID, *amIndex);
+	settings.setAttribute(fmRatio->paramID, *fmRatio);
+	settings.setAttribute(amRatio->paramID, *amRatio);
+	settings.setAttribute(rmRatio->paramID, *rmRatio);
+	settings.setAttribute(xPos->paramID, *xPos);
+	settings.setAttribute(yPos->paramID, *yPos);
+	settings.setAttribute(attack->paramID, *attack);
+	settings.setAttribute(decay->paramID, *decay);
+	settings.setAttribute(sustain->paramID, *sustain);
+	settings.setAttribute(release->paramID, *release);
+	settings.setAttribute(tremDepth->paramID, *tremDepth);
+	settings.setAttribute(tremFreq->paramID, *tremFreq);
+	settings.setAttribute(tremPhase->paramID, *tremPhase);
+	settings.setAttribute(distDrive->paramID, *distDrive);
+	settings.setAttribute(distGain->paramID, *distGain);
+	settings.setAttribute(vol->paramID, *vol);
+	
+	copyXmlToBinary(settings, destData);
+
 }
 
 void PolySynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+
+	
+	ScopedPointer<XmlElement> xmlState (getXmlFromBinary(data, sizeInBytes));
+	
+	if (xmlState != nullptr) {
+		if (xmlState->hasTagName("PluginSettings")) {
+			*fmIndex = xmlState->getDoubleAttribute(fmIndex->paramID);
+			*amIndex = xmlState->getDoubleAttribute(amIndex->paramID);
+			*fmRatio = xmlState->getDoubleAttribute(fmRatio->paramID);
+			*amRatio = xmlState->getDoubleAttribute(amRatio->paramID);
+			*rmRatio = xmlState->getDoubleAttribute(rmRatio->paramID);
+			*xPos = xmlState->getDoubleAttribute(xPos->paramID);
+			*yPos = xmlState->getDoubleAttribute(yPos->paramID);
+			*attack = xmlState->getDoubleAttribute(attack->paramID);
+			*decay = xmlState->getDoubleAttribute(decay->paramID);
+			*sustain = xmlState->getDoubleAttribute(sustain->paramID);
+			*release = xmlState->getDoubleAttribute(release->paramID);
+			*tremDepth = xmlState->getDoubleAttribute(tremDepth->paramID);
+			*tremFreq = xmlState->getDoubleAttribute(tremFreq->paramID);
+			*tremPhase = xmlState->getDoubleAttribute(tremPhase->paramID);
+			*distDrive = xmlState->getDoubleAttribute(distDrive->paramID);
+			*distGain = xmlState->getDoubleAttribute(distGain->paramID);
+			*vol = xmlState->getDoubleAttribute(vol->paramID);
+		}
+	}
 }
 
 //==============================================================================
