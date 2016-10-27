@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "PluginGUI.h"
 class XYZone;
 //[/Headers]
 
@@ -38,7 +39,8 @@ class XYZone;
 */
 class PolySynthAudioProcessorEditor  : public AudioProcessorEditor,
                                        public Timer,
-                                       public SliderListener
+                                       public SliderListener,
+                                       public LabelListener
 {
 public:
     //==============================================================================
@@ -53,6 +55,7 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
+    void labelTextChanged (Label* labelThatHasChanged) override;
     void childrenChanged() override;
 
 
@@ -61,6 +64,8 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	void timerCallback() override;
     PolySynthAudioProcessor& processor;
+	
+	PolySynthLookAndFeel plugGUI;
 
 	float matrixX = 0;
 	float matrixY = 0;
@@ -83,6 +88,17 @@ private:
     ScopedPointer<Slider> distDriveSlider;
     ScopedPointer<Slider> distGainSlider;
     ScopedPointer<XYZone> xyZone;
+    ScopedPointer<Label> distDriveLabel;
+    ScopedPointer<Label> volLabel;
+    ScopedPointer<Label> distGainLabel;
+    ScopedPointer<Label> tremPhaseLabel;
+    ScopedPointer<Label> tremFreqLabel;
+    ScopedPointer<Label> tremDepthLabel;
+    ScopedPointer<Label> rmRatioLabel;
+    ScopedPointer<Label> amIndexLabel;
+    ScopedPointer<Label> fmRatioLabel;
+    ScopedPointer<Label> fmIndexLabel;
+    ScopedPointer<Label> amRatioLabel;
     Path internalPath1;
 
 

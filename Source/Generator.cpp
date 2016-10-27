@@ -54,29 +54,29 @@ void Generator::setPitch(float newVal){
 }
 void Generator::setFmIndex(float newVal){
 	fmIndex.set(fmBaseFreq.get() * powf(2, newVal));
-	DBG("Actual FM Index: "<<fmIndex.get());
+//	DBG("Actual FM Index: "<<fmIndex.get());
 }
 void Generator::setAmIndex(float newVal){
 	amIndex.set(newVal);
-	DBG("Actual AM Index: "<<amIndex.get());
+//	DBG("Actual AM Index: "<<amIndex.get());
 }
 void Generator::setFmRatio(float newVal){
 	fmRatio.set(newVal);
-	DBG("Actual FM Ratio: "<<fmRatio.get());
+//	DBG("Actual FM Ratio: "<<fmRatio.get());
 }
 void Generator::setAmRatio(float newVal){
 	amRatio.set(newVal);
-	DBG("Actual AM Ratio: "<<amRatio.get());
+//	DBG("Actual AM Ratio: "<<amRatio.get());
 }
 void Generator::setRmRatio(float newVal){
 	rmRatio.set(newVal);
-	DBG("Actual RM Ratio: "<<rmRatio.get());
+//	DBG("Actual RM Ratio: "<<rmRatio.get());
 }
 
 void Generator::setXWeight(float newVal){
 	rmGain.set(sqrt(newVal));
 	amGain.set(sqrt(1 - newVal));
-	DBG("AmGain: "<<amGain.get()<<" RmGain: "<<rmGain.get()<<" FmGain: "<<fmGain.get());
+//	DBG("AmGain: "<<amGain.get()<<" RmGain: "<<rmGain.get()<<" FmGain: "<<fmGain.get());
 }
 void Generator::setYWeight(float newVal){
 	fmGain.set(1 - newVal);

@@ -47,6 +47,7 @@
       <FILE id="ZMHGO5" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="awhoK1" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="vruOuk" name="PluginGUI.h" compile="0" resource="0" file="Source/PluginGUI.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
