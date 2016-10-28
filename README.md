@@ -48,7 +48,8 @@ Finally all the information between the editor and the processor is handled by t
 see this youTube video to check how the synthesizer works and sounds ;)
 
 
-https://youtu.be/aRnZtbJNLMI
+https://youtu.be/9c0S9eRqLmk
+
 
 ## History
 
