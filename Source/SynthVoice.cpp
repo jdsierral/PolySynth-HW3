@@ -32,8 +32,9 @@ void SynthVoice::startNote (int midiNoteNumber, float velocity,
 							SynthesiserSound*, int /*currentPitchWheelPosition*/) {
 	level = velocity;
 	gen->setPitch(MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+	DBG("MidiNote: "<<midiNoteNumber);
 	if (velocity > 0) env->start();
-	DBG("Velocity: "<<velocity);
+//	DBG("Velocity: "<<velocity);
 }
 
 void SynthVoice::stopNote (float /*velocity*/, bool allowTailOff) {

@@ -116,8 +116,9 @@ float Enveloper::tick(){
 		case sustain:
 			
 			//just Wait on the same level for something to change
-			
-			level = sustainLevel;
+			level = sustainLevel * (1.0 - 0.99);
+			level = level + delay;
+			delay = level * decayPole;
 			break;
 		case release:
 			

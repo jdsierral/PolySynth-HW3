@@ -33,6 +33,7 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
     : AudioProcessorEditor (&p), processor (p)
 {
     //[Constructor_pre] You can add your own custom stuff here..
+	setLookAndFeel(&plugGUI);
 
     //[/Constructor_pre]
 

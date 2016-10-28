@@ -192,6 +192,25 @@ PolySynthAudioProcessor::PolySynthAudioProcessor()
 	addParameter(distGain);
 	addParameter(vol);
 	
+	*fmIndex = 0.f;
+	*amIndex = 0.f;
+	*fmRatio = 0.f;
+	*amRatio = 0.f;
+	*rmRatio = 0.f;
+	*xPos = 0.5f;
+	*yPos = 0.5f;
+	*attack = 0.f;
+	*decay = 0.f;
+	*sustain = 0.f;
+	*release = 0.f;
+	*tremDepth = 0.f;
+	*tremPhase = 0.f;
+	*distDrive = 0.f;
+	*distGain = 0.f;
+	*vol = 0.f;
+	
+	
+	
 	
 	
 	for (int i = numVoices; --i >= 0;) {
