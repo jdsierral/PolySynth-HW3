@@ -8,7 +8,7 @@
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="PolySynthAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.PolySynth"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.2.4"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.0"
               companyName="JuanSaudio" companyWebsite="www.JuanSaudio.com"
               companyEmail="jdsierral@JuanSaudio.com">
   <MAINGROUP id="EJpU6M" name="PolySynth">
