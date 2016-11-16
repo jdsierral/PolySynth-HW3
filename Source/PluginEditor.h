@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.2.4
+  Created with Projucer version: 4.3.0
 
   ------------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	void timerCallback() override;
     PolySynthAudioProcessor& processor;
-	
+
 	PolySynthLookAndFeel plugGUI;
 
 	float matrixX = 0;

@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 4.2.4
+  Created with Projucer version: 4.3.0
 
   ------------------------------------------------------------------------------
 
@@ -614,70 +614,70 @@ void PolySynthAudioProcessorEditor::timerCallback() {
 		else
 			volLabel->setText("Vol", dontSendNotification);
 	}
-	
+
 	if (!distDriveLabel->isBeingEdited()) {
 		if (distDriveSlider->isMouseOverOrDragging() || distDriveLabel->isMouseOver())
 			distDriveLabel->setText((String)distDriveSlider->getValue(), dontSendNotification);
 		else
 			distDriveLabel->setText("Drive", dontSendNotification);
 	}
-	
+
 	if (!distGainLabel->isBeingEdited()) {
 		if (distGainSlider->isMouseOverOrDragging() || distGainLabel->isMouseOver())
 			distGainLabel->setText((String)distGainSlider->getValue(), dontSendNotification);
 		else
 			distGainLabel->setText("Gain", dontSendNotification);
 	}
-	
+
 	if (!tremPhaseLabel->isBeingEdited()) {
 		if (tremPhaseSlider->isMouseOverOrDragging() || tremPhaseLabel->isMouseOver())
 			tremPhaseLabel->setText((String)tremPhaseSlider->getValue(), dontSendNotification);
 		else
 			tremPhaseLabel->setText("Phase", dontSendNotification);
 	}
-	
+
 	if (!tremFreqLabel->isBeingEdited()) {
 		if (tremFreqSlider->isMouseOverOrDragging() || tremFreqLabel->isMouseOver())
 			tremFreqLabel->setText((String)tremFreqSlider->getValue(), dontSendNotification);
 		else
 			tremFreqLabel->setText("Speed", dontSendNotification);
 	}
-	
+
 	if (!tremDepthLabel->isBeingEdited()) {
 		if (tremDepthSlider->isMouseOverOrDragging() || tremDepthLabel->isMouseOver())
 			tremDepthLabel->setText((String)tremDepthSlider->getValue(), dontSendNotification);
 		else
 			tremDepthLabel->setText("Depth", dontSendNotification);
 	}
-	
+
 	if (!rmRatioLabel->isBeingEdited()) {
 		if (rmRatioSlider->isMouseOverOrDragging() || rmRatioLabel->isMouseOver())
 			rmRatioLabel->setText((String)rmRatioSlider->getValue(), dontSendNotification);
 		else
 			rmRatioLabel->setText("Ratio", dontSendNotification);
 	}
-	
+
 	if (!amIndexLabel->isBeingEdited()) {
 		if (amIndexSlider->isMouseOverOrDragging() || amIndexLabel->isMouseOver())
 			amIndexLabel->setText((String)amIndexSlider->getValue(), dontSendNotification);
 		else
 			amIndexLabel->setText("Index", dontSendNotification);
 	}
-	
+
 	if (!fmRatioLabel->isBeingEdited()) {
 		if (fmRatioSlider->isMouseOverOrDragging() || fmRatioLabel->isMouseOver())
 			fmRatioLabel->setText((String)fmRatioSlider->getValue(), dontSendNotification);
 		else
 			fmRatioLabel->setText("Ratio", dontSendNotification);
 	}
-	
+
 	if (!fmIndexLabel->isBeingEdited()) {
 		if (fmIndexSlider->isMouseOverOrDragging() || fmIndexLabel->isMouseOver())
 			fmIndexLabel->setText((String)fmIndexSlider->getValue(), dontSendNotification);
 		else
 			fmIndexLabel->setText("Index", dontSendNotification);
 	}
-	
+
 	if (!amRatioLabel->isBeingEdited()) {
 		if (amRatioSlider->isMouseOverOrDragging() || amRatioLabel->isMouseOver())
 			amRatioLabel->setText((String)amRatioSlider->getValue(), dontSendNotification);
