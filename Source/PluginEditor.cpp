@@ -256,7 +256,7 @@ PolySynthAudioProcessorEditor::PolySynthAudioProcessorEditor (PolySynthAudioProc
 
 
     //[Constructor] You can add your own custom stuff here..
-	startTimer(50);
+		startTimer(50);
     //[/Constructor]
 }
 
